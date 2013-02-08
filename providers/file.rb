@@ -17,3 +17,15 @@ action :download do
   end
 
 end
+
+action :upload do
+  file_name = new_resource.file_name
+  bucket = new_resource.bucket
+  object_name = new_resource.object_name
+  object_name.slice!(0) if object_name.start_with? 
+  config = new_resource.config ? "-c #{new_resource.config}" : ''
+
+  execute "Uploading #{file_name} to s3" do
+    command "s3cmd #{config} put #{file_name} s3://#{bucket}/#{object_name}"
+  end
+end

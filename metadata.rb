@@ -8,6 +8,6 @@ version          '0.1.0'
 
 recipe 's3cmd', 'Configures s3cmd'
 
-%w{redhat centos}.each do |os|
+%w{redhat centos ubuntu}.each do |os|
   supports os
 end

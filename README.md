@@ -7,6 +7,7 @@ Configures s3cmd
 Platform:
 * CentOS 6.x
 * RHEL 6.x
+* Ubuntu
 
 # Usage
 Add the s3cmd cookbook to your role/run_list.
@@ -31,6 +32,17 @@ Downloads a file from s3
       group "LOCAL_FILE_GROUP"
       mode "LOCAL_FILE_MODE"
     end
+    
+Uploads a file to s3
+	
+	s3cmd_file "LOCAL_FILE" do
+		action :upload
+		bucket "BUCKET_TO_UPLOAD_TO"
+		object_name "OBJECT_TO_UPLOAD"
+		owner "LOCAL_FILE_OWNER"
+		group "LOCAL_FILE_GROUP"
+		mode "LOCAL_FILE_MODE"
+	end
 
 # Authors
 * Thomas Bishop (@thbishop)
