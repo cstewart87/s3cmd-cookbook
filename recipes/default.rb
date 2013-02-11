@@ -6,8 +6,9 @@
 #install s3cmd
 package "s3cmd"
 
+s3_credentials = Chef::EncryptedDataBagItem.load(node[:s3cmd][:creds][:databag], node[:s3cmd][:creds][:item]) rescue {}
 # for each user, install a credentials (.s3cfg) file
-node[:s3cmd][:users].each do |user, creds| 
+s3_credentials["users"].each do |user, creds| 
        
     home = node[:etc][:passwd][user][:dir] rescue nil
 
@@ -21,8 +22,8 @@ node[:s3cmd][:users].each do |user, creds|
             source "s3cfg.erb"
             mode 0600
             variables(
-                :access_key => creds[:access],
-                :secret_key => creds[:secret]
+                :access_key => creds["access"],
+                :secret_key => creds["secret"]
             )
         end 
     end
